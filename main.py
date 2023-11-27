@@ -2,10 +2,12 @@ import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import settings
 import ephem
+from datetime import datetime
 
 logging.basicConfig(filename='bot.log', level=logging.INFO)
 
-today = '2023/11/21'
+
+today = datetime.now()
 planet_dict = {'Mars': ephem.Mars(today), 'Venus': ephem.Venus(today), 'Saturn': ephem.Saturn(today), 'Jupiter': ephem.Jupiter(today),
                'Neptune': ephem.Neptune(today), 'Uranus': ephem.Uranus(today), 'Mercury': ephem.Mercury(today)}
 
@@ -26,7 +28,7 @@ def planet_user(update, context):
 
 def talk_to_me(update, context):
     text = update.message.text
-    print(text)
+    logging.info(f'Введен текст: {text}')
     update.message.reply_text(text)
 
 def main():
